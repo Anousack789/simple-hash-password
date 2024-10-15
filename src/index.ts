@@ -11,53 +11,59 @@ export const ALGORITHM = {
 
 export type HashAlgorithm = ObjectValues<typeof ALGORITHM>;
 
+
 /**
- * This TypeScript function hashes a given password using a specified algorithm and returns the hashed
- * value as a hexadecimal string.
- * @param {string} password - The `hash` function you provided is an asynchronous function that takes
- * in a password string and an optional object with an algorithm property. The function then hashes the
- * password using the specified algorithm and returns the hashed value as a hexadecimal string.
- * @param  - The `hash` function takes in a `password` string and an optional object with a
- * `HashAlgorithm` property. The `HashAlgorithm` type is defined elsewhere in your code as an enum or a
- * set of constants named `ALGORITHM`.
- * @returns The `hash` function returns a hashed representation of the input `password` using the
- * specified hashing `algorithm`. The hashed password is returned as a hexadecimal string.
+ * The hash function in TypeScript asynchronously generates a hash value for a given password using a
+ * specified algorithm and salt.
+ * @param {string} password - The `hash` function you provided is used to hash a password using a
+ * specified algorithm and salt. The parameters for the function are as follows:
+ * @param  - The `hash` function takes in a password as a string and an optional configuration object
+ * with two properties: `algorithm` and `salt`. The `algorithm` property specifies the hashing
+ * algorithm to be used, defaulting to "SHA-256" if not provided. The `salt` property is a
+ * @returns The `hash` function returns a hashed password string in the format `:`,
+ * where:
+ * - `salt` is a randomly generated string used for salting the password before hashing
+ * - `hashValue` is the result of hashing the concatenated password and salt using the specified
+ * algorithm
  */
 export async function hash(
   password: string,
-  { algorithm = "SHA-256" }: { algorithm?: HashAlgorithm } = {}
+  {
+    algorithm = "SHA-256",
+    salt = generatePassword(),
+  }: { algorithm?: HashAlgorithm; salt?: string } = {}
 ) {
   if (!Object.values(ALGORITHM).includes(algorithm)) {
     throw new Error("Unsupported hashing algorithm.");
   }
   const encoder = new TextEncoder();
-  const data = encoder.encode(password);
+  const data = encoder.encode(password + salt);
   const hash = await crypto.subtle.digest(algorithm, data);
-  return Array.from(new Uint8Array(hash))
+  return `${salt}:${Array.from(new Uint8Array(hash))
     .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
+    .join("")}`;
 }
 
 
 /**
- * The function `verify` compares a password with a hashed password using a specified hashing algorithm
- * in TypeScript.
- * @param {string} password - A string representing the password that needs to be verified.
- * @param {string} hashedPassword - The `hashedPassword` parameter is a string representing the hashed
- * version of the original password. In the `verify` function, this parameter is compared with the
- * hashed version of the password passed to the function to determine if they match, indicating whether
- * the password is correct.
+ * The function `verify` compares a password with a hashed password using a specified algorithm to
+ * check for a match.
+ * @param {string} password - The `password` parameter is a string representing the user's input
+ * password that needs to be verified against the hashed password.
+ * @param {string} hashedPassword - The `hashedPassword` parameter is a string that contains both the
+ * salt and the hashed password separated by a colon (':').
  * @param  - The `verify` function takes in three parameters:
- * @returns a boolean value indicating whether the hashed password matches the hashed value of the
- * input password.
+ * @returns The `verify` function is returning a boolean value indicating whether the hashed password
+ * generated from the input password matches the stored hashed password.
  */
 export async function verify(
   password: string,
   hashedPassword: string,
   { algorithm = "SHA-256" }: { algorithm?: HashAlgorithm } = {}
 ) {
-  const hashed = await hash(password, { algorithm });
-  return hashed === hashedPassword;
+  const [salt, hashStr] = hashedPassword.split(":");
+  const hashed = await hash(password, { algorithm, salt });
+  return hashed === `${salt}:${hashStr}`;
 }
 
 /**
@@ -76,6 +82,6 @@ export function generatePassword({
   if (length % 3 !== 0) {
     throw new Error("Length of password should be a multiple of 3.");
   }
-  const password = crypto.randomBytes(length).toString("hex").slice(0, length);;
+  const password = crypto.randomBytes(length).toString("hex").slice(0, length);
   return password;
 }

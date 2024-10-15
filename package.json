@@ -1,6 +1,6 @@
 {
   "name": "simple-hash-password",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A TypeScript library for securely hashing passwords, verifying hashed passwords, and generating random passwords using various algorithms (SHA-1, SHA-256, SHA-384, SHA-512).",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -8,7 +8,11 @@
   "scripts": {
     "build": "tsup",
     "test": "jest --coverage",
-    "release": "commit-and-tag-version"
+    "release": "commit-and-tag-version",
+    "deploy": "tsup && npm publish"
+  },
+  "repository": {
+    "url": "https://github.com/Anousack789/simple-hash-password"
   },
   "keywords": [
     "hash",
