@@ -1,0 +1,11 @@
+/src
+/node_modules
+/coverage
+/.vscode
+jest.config.js
+.env
+.DS_Store
+
+tsconfig.json
+tsup.config.ts
+CHANGELOG.md
