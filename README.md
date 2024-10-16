@@ -35,7 +35,7 @@ const isValid = await verify(password, hashedPassword,
 );
 console.log(`Password is valid: ${isValid}`);
 
-const newPassword = generatePassword({ length: 18 }); // Length should be a multiple of 3
+const newPassword = generatePassword({ length: 18 }); // Length is optional but if you need to set it should be a multiple of 3
 console.log(`Generated Password: ${newPassword}`);
 
 ```
