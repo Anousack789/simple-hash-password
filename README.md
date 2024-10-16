@@ -44,20 +44,20 @@ console.log(`Generated Password: ${newPassword}`);
 
 # Desktop Browsers:
 
-	•	Google Chrome: Supported from version 37.
-	•	Mozilla Firefox: Supported from version 34.
-	•	Microsoft Edge: Supported from version 12.
-	•	Safari: Supported from version 7.1.
-	•	Opera: Supported from version 24.
+- Google Chrome: Supported from version 37.
+- Mozilla Firefox: Supported from version 34.
+- Microsoft Edge: Supported from version 12.
+- Safari: Supported from version 7.1.
+- Opera: Supported from version 24.
 
 # Mobile Browsers:
 
-	•	Chrome for Android: Supported from version 37.
-	•	Firefox for Android: Supported from version 34.
-	•	Safari on iOS: Supported from version 8.
-	•	Samsung Internet: Supported from version 4.0.
-	•	Opera for Android: Supported from version 24.
+- Chrome for Android: Supported from version 37.
+- Firefox for Android: Supported from version 34.
+- Safari on iOS: Supported from version 8.
+- Samsung Internet: Supported from version 4.0.
+- Opera for Android: Supported from version 24.
 
 # Not Supported (or with Partial Support):
 
-	•	Internet Explorer: Only partial support in version 11 (supports crypto but not crypto.subtle).
+- Internet Explorer: Only partial support in version 11 (supports crypto but not crypto.subtle).
