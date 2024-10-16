@@ -42,7 +42,7 @@ console.log(`Generated Password: ${newPassword}`);
 
 ## Browsers that support the Web Crypto API (crypto.subtle):
 
-# Desktop Browsers:
+### Desktop Browsers:
 
 - Google Chrome: Supported from version 37.
 - Mozilla Firefox: Supported from version 34.
@@ -50,7 +50,7 @@ console.log(`Generated Password: ${newPassword}`);
 - Safari: Supported from version 7.1.
 - Opera: Supported from version 24.
 
-# Mobile Browsers:
+### Mobile Browsers:
 
 - Chrome for Android: Supported from version 37.
 - Firefox for Android: Supported from version 34.
@@ -58,6 +58,6 @@ console.log(`Generated Password: ${newPassword}`);
 - Samsung Internet: Supported from version 4.0.
 - Opera for Android: Supported from version 24.
 
-# Not Supported (or with Partial Support):
+### Not Supported (or with Partial Support):
 
 - Internet Explorer: Only partial support in version 11 (supports crypto but not crypto.subtle).
